@@ -1,0 +1,77 @@
+
+{
+    "id": "90b68602ab53",
+    "name": "Edison",
+    "messageBroker": {
+        "endpoint": "mqtt://127.0.0.1:1883",
+        "options": {} 
+    },
+    
+    "sensors": [
+        {
+            "name":"Temperature", 
+            "type": "TempSensor",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "out"
+            },
+            "topicIn": "sensor/temp/in",
+            "topicOut": "sensor/temp/out",
+            "startSensing": true,
+            "skip": true
+        },
+        {
+            "name":"Button", 
+            "type": "DigitalSensor",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "sensor/button/in",
+            "topicOut": "sensor/button/out",
+            "startSensing": true
+        },
+        {
+            "name":"Relay", 
+            "type": "DigitalSensor",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 6,
+                "dir": "in"
+
+            },
+            "topicIn": "sensor/relay/in",
+            "topicOut": "sensor/relay/out",
+            "startSensing": false
+        },        
+        {
+            "name":"Led", 
+            "type": "DigitalSensor",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 3,
+                "dir": "in"
+
+            },
+            "topicIn": "sensor/led/in",
+            "topicOut": "sensor/led/out",
+            "startSensing": false
+        },        
+        {
+            "name":"Display", 
+            "type": "LcdSensor",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "in"
+
+            },
+            "topicIn": "sensor/display/in",
+            "topicOut": "sensor/display/out",
+            "startSensing": false
+        }        
+                
+    ]
+}
