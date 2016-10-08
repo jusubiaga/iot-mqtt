@@ -1,0 +1,80 @@
+
+{
+    "id": "90b68602ab53",
+    "name": "Edison",
+    "messageBroker": {
+        "endpoint": "mqtt://127.0.0.1:1883",
+        "options": {} 
+    },
+    
+    "things": [
+        {
+            "name":"Temperature", 
+            "type": "TempThing",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "out"
+            },
+            "topicIn": "thing/temp/in",
+            "topicOut": "thing/temp/out",
+            "startSensing": true,
+            "skip": true
+        },
+        {
+            "name":"Button", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPinSim",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/button/in",
+            "topicOut": "thing/button/out",
+            "startSensing": true
+        },
+        {
+            "name":"Relay", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 6,
+                "dir": "in"
+
+            },
+            "topicIn": "thing/relay/in",
+            "topicOut": "thing/relay/out",
+            "startSensing": false,
+            "skip": true
+        },        
+        {
+            "name":"Led", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 3,
+                "dir": "in"
+
+            },
+            "topicIn": "thing/led/in",
+            "topicOut": "thing/led/out",
+            "startSensing": false,
+            "skip": true
+        },        
+        {
+            "name":"Display", 
+            "type": "DisplayThing",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "in"
+
+            },
+            "topicIn": "thing/display/in",
+            "topicOut": "thing/display/out",
+            "startSensing": false,
+            "skip": true
+        }        
+                
+    ]
+}
