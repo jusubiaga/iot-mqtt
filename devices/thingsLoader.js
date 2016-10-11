@@ -22,9 +22,9 @@ var ThingsLoader = (function(options){
         var AnalogPinSim = require('../ioDriver/analogPinMock.js');
         
         // Things
-        var DigitalThing = require('../sensors/digitalThing.js');
-        var AnalogThing = require('../sensors/analogThing.js');
-        var TempThing = require('../sensors/custom/tempThing.js');
+        var DigitalThing = require('../things/digitalThing.js');
+        var AnalogThing = require('../things/analogThing.js');
+        var TempThing = require('../things/custom/tempThing.js');
         //var DisplayThing = require('../custom/DisplayThing.js');
 
         this._pinFactory = {

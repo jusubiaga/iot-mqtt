@@ -1,3 +1,5 @@
+'use strict';
+
 var Thing = require('./thing');
 
 var I2CThing = (function(){
