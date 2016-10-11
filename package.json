@@ -2,9 +2,12 @@
   "name": "io-thinks",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./devices/thingsLoader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "loadThings": "./devices/thingsLoaderCmd.js"
   },
   "author": "Juan Usubiaga",
   "license": "MIT",
