@@ -2,6 +2,8 @@ var fs = require('fs');
 var program = require('commander');
 var ThingsLoader = require('./thingsLoader');
 
+var loader = null;
+
 function main(){
   // Command Line
   program
@@ -9,7 +11,11 @@ function main(){
     .usage('[options] <file>')
     .option('-l, --load <file>', 'load things into the device given a json descriptor file.')
     .option('-w, --watch <file>', 'watch for changes in the descriptor file')
+    .option('-t, --test', 'test mode')
     .parse(process.argv);
+
+  var options = {test: program.test};
+  loader = new ThingsLoader(options);
 
   if(program.load) {
     load(program.load);
@@ -21,13 +27,17 @@ function main(){
 }
 
 function load(file){
-  console.log('Loadding things from ' + file);
-  var loader = new ThingsLoader(); 
+  console.log('Loadding things from ' + file);  
   loader.load(file);
 }
 
 function watch(file){
-  console.log('watch ' +  file);
+  console.log('Watching ' +  file);
+  loader.load(file);
+  fs.watch(file, function(curr, prev){
+    loader.clean();
+    loader.load(file);
+  });
 }
 
 main();

@@ -3,16 +3,24 @@
 var fs = require('fs');
 var MqttMessageBroker = require('../messageBroker/mqttMessageBroker.js');
 
-var ThingsLoader = (function(){
-    function ThingsLoader() {
-        this._things = {};
+var ThingsLoader = (function(options){
+    function ThingsLoader(options) {
+        options = options || {};
+        this._things = {};        
 
         this._mqttMessageBroker = null;
 
         // Pins
+        var DigitalPin = null;
+        var AnalogPin = null;        
+        if(!options.test) {
+            DigitalPin = require('../ioDriver/digitalPinMraa.js');
+            AnalogPin = require('../ioDriver/analogPinMraa.js');            
+        }
+
         var DigitalPinSim = require('../ioDriver/digitalPinMock.js');
         var AnalogPinSim = require('../ioDriver/analogPinMock.js');
-
+        
         // Things
         var DigitalThing = require('../sensors/digitalThing.js');
         var AnalogThing = require('../sensors/analogThing.js');
@@ -20,8 +28,8 @@ var ThingsLoader = (function(){
         //var DisplayThing = require('../custom/DisplayThing.js');
 
         this._pinFactory = {
-        //    'DigitalPin': DigitalPin,
-        //    'AnalogPin': AnalogPin,
+            'DigitalPin': DigitalPin,
+            'AnalogPin': AnalogPin,
             'DigitalPinSim': DigitalPinSim,
             'AnalogPinSim': DigitalPinSim    
         };
@@ -29,7 +37,7 @@ var ThingsLoader = (function(){
         this._thingFactory = {
             'DigitalThing': DigitalThing,
             'AnalogThing': AnalogThing,
-            'TempSensor': TempThing,
+            'TempThing': TempThing,
         //    'LcdSensor': LcdSensor
         };
 
@@ -75,6 +83,13 @@ var ThingsLoader = (function(){
                 topicOut: deviceId + '/' + config.topicOut, 
                 sensingTime: config.sensingTime, 
                 startSensing: config.startSensing} );
+        }
+    }
+
+    ThingsLoader.prototype.clean = function() {
+        var thingsNames = Object.keys(this._things);
+        for(var i=0; i<thingsNames.length; i++) {
+            this._things[thingsNames[i]].destroy();
         }
     }
 

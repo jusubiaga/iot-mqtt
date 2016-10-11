@@ -12,14 +12,14 @@
             "name":"Temperature", 
             "type": "TempThing",
             "pin": {
-                "type": "AnalogPin",
+                "type": "AnalogPinSim",
                 "number": 0,
                 "dir": "out"
             },
             "topicIn": "thing/temp/in",
             "topicOut": "thing/temp/out",
             "startSensing": true,
-            "skip": true
+            "skip": false
         },
         {
             "name":"Button", 
@@ -31,13 +31,14 @@
             },
             "topicIn": "thing/button/in",
             "topicOut": "thing/button/out",
-            "startSensing": true
+            "startSensing": true,
+            "skip": true
         },
         {
             "name":"Relay", 
             "type": "DigitalThing",
             "pin": {
-                "type": "DigitalPin",
+                "type": "DigitalPinSim",
                 "number": 6,
                 "dir": "in"
 
@@ -51,7 +52,7 @@
             "name":"Led", 
             "type": "DigitalThing",
             "pin": {
-                "type": "DigitalPin",
+                "type": "DigitalPinSim",
                 "number": 3,
                 "dir": "in"
 
@@ -65,7 +66,7 @@
             "name":"Display", 
             "type": "DisplayThing",
             "pin": {
-                "type": "AnalogPin",
+                "type": "AnalogPinSim",
                 "number": 0,
                 "dir": "in"
 

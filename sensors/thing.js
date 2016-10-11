@@ -13,7 +13,7 @@ var Thing = (function(){
         this._type = null;
         this._topicIn = null;
         this._topicOut = null;
-        this._value = null;
+        this._value = 0;
         
         this._loopInterval = null;
         this._sensingTime;
@@ -87,7 +87,7 @@ var Thing = (function(){
 
         // Set Listening topic
         this._messageBrokerClient.on('connect', function () {
-            console.log('Thing ' + that._thing + ' connected to the queue.');
+            console.log(that._thing + ' [' + that._name + '] ' + 'connected to MQTT broker. ' + 'TOPIC: [' + 'IN:' + that._topicIn + ', OUT:' + that._topicOut + ']');
             // add for bluemix {clientId: 'd:quickstart:jusu-iotdemo:90b68602ab53'}
             that._messageBrokerClient.subscribe(that._topicIn);
             that.sendMessage('Thing is Ready');
@@ -95,7 +95,7 @@ var Thing = (function(){
 
         // Messages
         this._messageBrokerClient.on('message', function (topic, message) {
-            console.log('Thing ' + that._thing + ' receiving message: %s %s', topic, message);
+            console.log('Thing [' + that._name + '] receiving message: %s %s', topic, message);
             var action=null;
             var params=null;
             try {
@@ -125,6 +125,7 @@ var Thing = (function(){
         // { "topic": "iot-2/type/nodered-version0.13.4-git/id/90b68602ab53/evt/update/fmt/json", "payload": { "d": { "temp": 17, "humidity": 55, "location": { "longitude": -98.49, "latitude": 29.42 } } }, "deviceId": "90b68602ab53", "deviceType": "nodered-version0.13.4-git", "eventType": "update", "format": "json", "_msgid": "69a7a1f.f96586" }        
         var data = {thing: this._name, msg: message};
         this._messageBrokerClient.publish(this._topicOut, JSON.stringify(data));
+        console.log('Thing [' + this._name + '] sending message: %s %s', this._topicOut, message);        
     };
     
     Thing.prototype.startSensing = function(){
@@ -144,6 +145,11 @@ var Thing = (function(){
         if(action instanceof Function) {
             action.apply(this,args);
         }
+    };
+
+    Thing.prototype.destroy = function() {
+        this._messageBrokerClient.end();
+        console.log('Destroying thing ' + this._name);
     };
         
     return Thing;
