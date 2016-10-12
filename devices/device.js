@@ -53,7 +53,7 @@ var Device = (function(){
         };
 
         if(!config.test) {
-            var DisplayThing = require('../custom/DisplayThing.js');
+            var DisplayThing = require('../things/custom/displayThing.js');
             this._thingFactory['DisplayThing'] = DisplayThing 
         }
         
