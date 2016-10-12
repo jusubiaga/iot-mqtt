@@ -18,6 +18,9 @@ var Device = (function(){
         
         this._things = {};
 
+
+        // TODO Move the factories to file configuration
+
         // Pins
         var DigitalPin = null;
         var AnalogPin = null;        
@@ -33,7 +36,7 @@ var Device = (function(){
         var DigitalThing = require('../things/digitalThing.js');
         var AnalogThing = require('../things/analogThing.js');
         var TempThing = require('../things/custom/tempThing.js');
-        //var DisplayThing = require('../custom/DisplayThing.js');
+        var TouchThing = require('../things/custom/touchThing.js');
 
         this._pinFactory = {
             'DigitalPin': DigitalPin,
@@ -48,6 +51,11 @@ var Device = (function(){
             'TempThing': TempThing,
         //    'LcdSensor': LcdSensor
         };
+
+        if(!config.test) {
+            var DisplayThing = require('../custom/DisplayThing.js');
+            this._thingFactory['DisplayThing'] = DisplayThing 
+        }
         
     };
 
