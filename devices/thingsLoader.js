@@ -1,46 +1,12 @@
 'use strict';
 
 var fs = require('fs');
-var MqttMessageBroker = require('../messageBroker/mqttMessageBroker.js');
+var Device = require('./device');
 
 var ThingsLoader = (function(options){
     function ThingsLoader(options) {
-        options = options || {};
-        this._things = {};        
-
-        this._mqttMessageBroker = null;
-
-        // Pins
-        var DigitalPin = null;
-        var AnalogPin = null;        
-        if(!options.test) {
-            DigitalPin = require('../ioDriver/digitalPinMraa.js');
-            AnalogPin = require('../ioDriver/analogPinMraa.js');            
-        }
-
-        var DigitalPinSim = require('../ioDriver/digitalPinMock.js');
-        var AnalogPinSim = require('../ioDriver/analogPinMock.js');
-        
-        // Things
-        var DigitalThing = require('../things/digitalThing.js');
-        var AnalogThing = require('../things/analogThing.js');
-        var TempThing = require('../things/custom/tempThing.js');
-        //var DisplayThing = require('../custom/DisplayThing.js');
-
-        this._pinFactory = {
-            'DigitalPin': DigitalPin,
-            'AnalogPin': AnalogPin,
-            'DigitalPinSim': DigitalPinSim,
-            'AnalogPinSim': DigitalPinSim    
-        };
-
-        this._thingFactory = {
-            'DigitalThing': DigitalThing,
-            'AnalogThing': AnalogThing,
-            'TempThing': TempThing,
-        //    'LcdSensor': LcdSensor
-        };
-
+        this._options = options;
+        this._device = null;
     }
 
     ThingsLoader.prototype.load = function(file) {
@@ -53,44 +19,26 @@ var ThingsLoader = (function(options){
     };
 
     ThingsLoader.prototype._parseData = function(data) {
-
-        var deviceId = data.id;
-        this._mqttMessageBroker = new MqttMessageBroker(data.messageBroker.endpoint,data.messageBroker.options);
-
-        for (var i=0; i<data.things.length; i++) {
-            if (!data.things[i].skip) {
-                var thing = this._createThing(deviceId, data.things[i]);
-                if (thing) {
-                    thing.init();
-                    this._things[thing.Name] = thing;
-                }
+        // Create device
+        this._device = new Device(data.id, 
+            {
+                "name": data.name,
+                "messageBroker": {
+                    "endpoint": data.messageBroker.endpoint,
+                    "options": data.messageBroker.options
+                },
+                "test": this._options && this._options.test
             }
+        )
+
+        // Create Things into device
+        for (var i=0; i<data.things.length; i++) {
+            this._device.createThing(data.things[i]);
         }
     }
 
-    ThingsLoader.prototype._createThing = function(deviceId, config){
-
-        var pinCreator = this._pinFactory[config.pin.type];
-        var thingCreator = this._thingFactory[config.type];
-        
-        if (pinCreator && thingCreator) {
-            var pin = new pinCreator();
-            var pinDir = config.pin.dir === 'out' ? 1 : 0;
-            pin.connect(config.pin.number, pinDir);
-            return new thingCreator(pin, this._mqttMessageBroker, {
-                name:config.name, 
-                topicIn: deviceId + '/' + config.topicIn, 
-                topicOut: deviceId + '/' + config.topicOut, 
-                sensingTime: config.sensingTime, 
-                startSensing: config.startSensing} );
-        }
-    }
-
-    ThingsLoader.prototype.clean = function() {
-        var thingsNames = Object.keys(this._things);
-        for(var i=0; i<thingsNames.length; i++) {
-            this._things[thingsNames[i]].destroy();
-        }
+    ThingsLoader.prototype.getDevice = function() {
+        return this._device;
     }
 
     return ThingsLoader;

@@ -1,7 +1,7 @@
 
 {
     "id": "90b68602ab53",
-    "name": "Edison",
+    "name": "myEdison",
     "messageBroker": {
         "endpoint": "mqtt://127.0.0.1:1883",
         "options": {} 
@@ -46,7 +46,7 @@
             "topicIn": "thing/relay/in",
             "topicOut": "thing/relay/out",
             "startSensing": false,
-            "skip": true
+            "skip": false
         },        
         {
             "name":"Led", 
@@ -60,7 +60,7 @@
             "topicIn": "thing/led/in",
             "topicOut": "thing/led/out",
             "startSensing": false,
-            "skip": true
+            "skip": false
         },        
         {
             "name":"Display", 

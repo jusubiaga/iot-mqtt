@@ -1,8 +1,8 @@
 {
-  "name": "io-thinks",
+  "name": "iot-mqtt",
   "version": "1.0.1",
   "description": "",
-  "main": "./devices/thingsLoader.js",
+  "main": "./devices/device.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
-    "mqtt": "^2.0.1"
+    "mqtt": "^2.0.1",
+    "uuid": "^2.0.3"
   }
 }

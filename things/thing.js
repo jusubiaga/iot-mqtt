@@ -8,7 +8,8 @@ var Thing = (function(){
     var LOOP_INTERVAL_TIME = 100; // millieconds
     function Thing(pin, messageBroker, config){
         this._thing = 'GENERIC';
-        
+
+        this._id = null;        
         this._name = null;
         this._type = null;
         this._topicIn = null;
@@ -34,6 +35,11 @@ var Thing = (function(){
     };
 
     Object.defineProperties(Thing.prototype,{
+        Id: {
+            get: function() {
+                return this._id;
+            }
+        },
         Pin:{
           get: function(){
               return this._pin;
@@ -67,6 +73,7 @@ var Thing = (function(){
     });
 
     Thing.prototype._configure = function(config) {
+        this._id = config.id;
         this._name = config.name;
         this._type = config.type;
         this._topicIn = config.topicIn;
@@ -125,7 +132,7 @@ var Thing = (function(){
         // { "topic": "iot-2/type/nodered-version0.13.4-git/id/90b68602ab53/evt/update/fmt/json", "payload": { "d": { "temp": 17, "humidity": 55, "location": { "longitude": -98.49, "latitude": 29.42 } } }, "deviceId": "90b68602ab53", "deviceType": "nodered-version0.13.4-git", "eventType": "update", "format": "json", "_msgid": "69a7a1f.f96586" }        
         var data = {thing: this._name, msg: message};
         this._messageBrokerClient.publish(this._topicOut, JSON.stringify(data));
-        console.log('Thing [' + this._name + '] sending message: %s %s', this._topicOut, message);        
+        console.log('Thing [' + this._name + '] sending message: %s %s', this._topicOut, message);
     };
     
     Thing.prototype.startSensing = function(){
