@@ -15,7 +15,7 @@ function main(){
     .usage('[options] <file>')
     .option('-l, --load <file>', 'load things into the device given a json descriptor file.')
     .option('-w, --watch <file>', 'watch for changes in the descriptor file')
-    .option('-t, --test', 'test mode')
+    .option('-t, --test', 'test mode. Use this flag if you want simulate the hardware')
     .parse(process.argv);
 
   var options = {test: program.test};

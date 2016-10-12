@@ -1,7 +1,7 @@
 var I2CThing = require('../I2CThing');
 var mraa = require('mraa');
 var jsUpmI2cLcd = require('jsupm_i2clcd');
-var LcdTextHelper = require('./lcd_text_helper');
+var LcdTextHelper = require('./LcdTextHelper');
 
 var DisplayThing = (function(){
     function DisplayThing(pin, messageBroker, config){
@@ -11,7 +11,7 @@ var DisplayThing = (function(){
         // Initialize the Display.
         this._lcd = new jsUpmI2cLcd.Jhd1313m1(6, 0x3E, 0x62);
         this._lcdText = new LcdTextHelper(this._lcd);
-        this._lcdText.set(['Ready','']);
+        this._lcdText.set(['Display Ready','']);
         
         this.addAction('WRITE', this.write);
         
