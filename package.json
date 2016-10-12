@@ -5,10 +5,10 @@
   "main": "./devices/device.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "loadThings": "./devices/thingsLoaderCmd.js"
+    "deviceLoader": "./bin/deviceLoader.js"
   },
   "bin": {
-    "loadThings": "./devices/thingsLoaderCmd.js"
+    "deviceLoader": "./bin/deviceLoader.js"
   },
   "author": "Juan Usubiaga",
   "license": "MIT",
