@@ -1,7 +1,7 @@
 var I2CThing = require('../I2CThing');
 var mraa = require('mraa');
 var jsUpmI2cLcd = require('jsupm_i2clcd');
-var LcdTextHelper = require('./LcdTextHelper');
+var LcdTextHelper = require('./lcdTextHelper');
 
 var DisplayThing = (function(){
     function DisplayThing(pin, messageBroker, config){
