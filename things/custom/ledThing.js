@@ -2,7 +2,7 @@ var DigitalThing = require('../digitalThing');
 
 var LedThing = (function(){
     function LedThing(pin, messageBroker, config){
-        DigitalThing.call(this,config);
+        DigitalThing.call(this, pin, messageBroker, config);
         this._thing = 'LED';
         
         this.addAction('BLINKON', this.blinkOn);

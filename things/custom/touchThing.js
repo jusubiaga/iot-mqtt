@@ -2,7 +2,7 @@ var DigitalThing = require('../digitalThing');
 
 var TouchThing = (function(){
     function TouchThing(pin, messageBroker, config){
-        DigitalThing.call(this,config);
+        DigitalThing.call(this, pin, messageBroker, config);
         this._thing = 'TOUCH';           
     };
     

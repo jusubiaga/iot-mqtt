@@ -37,6 +37,8 @@ var Device = (function(){
         var AnalogThing = require('../things/analogThing.js');
         var TempThing = require('../things/custom/tempThing.js');
         var TouchThing = require('../things/custom/touchThing.js');
+        var SwitchThing = require('../things/custom/switchThing.js');
+        var LedThing = require('../things/custom/ledThing.js');
 
         this._pinFactory = {
             'DigitalPin': DigitalPin,
@@ -49,7 +51,9 @@ var Device = (function(){
             'DigitalThing': DigitalThing,
             'AnalogThing': AnalogThing,
             'TempThing': TempThing,
-        //    'LcdSensor': LcdSensor
+            'SwitchThing': SwitchThing,
+            'TouchThing': TouchThing,
+            'LedThing': LedThing
         };
 
         if(!config.test) {
@@ -94,7 +98,7 @@ var Device = (function(){
             if (pinCreator && thingCreator) {
                 var pin = new pinCreator();
                 var pinDir = config.pin.dir === 'out' ? 1 : 0;
-                var thingId = uuid.v1();
+                var thingId = uuid.v4();
                 pin.connect(config.pin.number, pinDir);
                 thing = new thingCreator(pin, this._mqttMessageBroker, {
                     id: thingId,

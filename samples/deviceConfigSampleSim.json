@@ -19,9 +19,9 @@
             "topicIn": "thing/temp/in",
             "topicOut": "thing/temp/out",
             "startSensing": true,
-            "skip": false
+            "skip": true
         },
-        {
+        {  
             "name":"Button", 
             "type": "DigitalThing",
             "pin": {
@@ -31,6 +31,32 @@
             },
             "topicIn": "thing/button/in",
             "topicOut": "thing/button/out",
+            "startSensing": true,
+            "skip": true
+        },
+        {
+            "name":"Switch", 
+            "type": "SwitchThing",
+            "pin": {
+                "type": "DigitalPinSim",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/switch/in",
+            "topicOut": "thing/switch/out",
+            "startSensing": true,
+            "skip": false
+        },
+        {
+            "name":"Touch", 
+            "type": "TouchThing",
+            "pin": {
+                "type": "DigitalPinSim",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/touch/in",
+            "topicOut": "thing/touch/out",
             "startSensing": true,
             "skip": true
         },
@@ -46,11 +72,11 @@
             "topicIn": "thing/relay/in",
             "topicOut": "thing/relay/out",
             "startSensing": false,
-            "skip": false
+            "skip": true
         },        
         {
             "name":"Led", 
-            "type": "DigitalThing",
+            "type": "LedThing",
             "pin": {
                 "type": "DigitalPinSim",
                 "number": 3,

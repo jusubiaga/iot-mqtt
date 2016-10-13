@@ -37,6 +37,12 @@ var ThingsLoader = (function(options){
         }
     }
 
+    ThingsLoader.prototype.clean = function() {
+        if (this._device) {
+            this._device.cleanAllThings();
+        }
+    };
+
     ThingsLoader.prototype.getDevice = function() {
         return this._device;
     }

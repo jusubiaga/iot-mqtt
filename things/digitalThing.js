@@ -19,9 +19,21 @@ var DigitalThing = (function(){
         var that = this;
         
         this._pin.onChange(function(){
-            that._value = that._pin.read();
-            console.log('Read value', that._value);
-            that.sendMessage(that._value.toString());
+            var currentValue;
+            if (that._sensingFunction instanceof Function) {                
+                currentValue = that._sensingFunction.call(that, that._pin.read());
+            } else {
+                currentValue = that._pin.read();
+            }
+            if (currentValue !== that._value) {                
+                that._value = currentValue;
+                console.log('Read value', that._value);
+                that.sendMessage(that._value.toString());
+            }
+            
+            // that._value = that._pin.read();
+            // console.log('Read value', that._value);
+            // that.sendMessage(that._value.toString());
         });
     };
     
