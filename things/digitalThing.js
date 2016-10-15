@@ -17,7 +17,7 @@ var DigitalThing = (function(){
     DigitalThing.prototype.startSensing = function(){
         console.log(this._thing + ' [' + this._name + '] START SENSING ...');
         var that = this;
-        
+
         this._pin.onChange(function(){
             var currentValue;
             if (that._sensingFunction instanceof Function) {                

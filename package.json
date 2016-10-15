@@ -5,10 +5,10 @@
   "main": "./devices/device.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deviceLoader": "./bin/deviceLoader.js"
+    "iot-mqtt": "./bin/deviceLoader.js"
   },
   "bin": {
-    "deviceLoader": "./bin/deviceLoader.js"
+    "iot-mqtt": "./bin/deviceLoader.js"
   },
   "author": "Juan Usubiaga",
   "license": "MIT",
