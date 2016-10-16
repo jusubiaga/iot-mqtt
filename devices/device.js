@@ -102,6 +102,7 @@ var Device = (function(){
                 pin.connect(config.pin.number, pinDir);
                 thing = new thingCreator(pin, this._mqttMessageBroker, {
                     id: thingId,
+                    deviceId: this._id,
                     name: config.name, 
                     topicIn: config.topicIn ? this._id + '/' + config.topicIn : this._id + '/' + thingId + '/in', 
                     topicOut: config.topicOut ? this._id + '/' + config.topicOut : this._id + '/' + thingId + '/out', 

@@ -9,7 +9,8 @@ var Thing = (function(){
     function Thing(pin, messageBroker, config){
         this._thing = 'GENERIC';
 
-        this._id = null;        
+        this._id = null;
+        this._deviceId = null;
         this._name = null;
         this._type = null;
         this._topicIn = null;
@@ -74,6 +75,7 @@ var Thing = (function(){
 
     Thing.prototype._configure = function(config) {
         this._id = config.id;
+        this._deviceId = config.deviceId;
         this._name = config.name;
         this._type = config.type;
         this._topicIn = config.topicIn;
@@ -127,12 +129,21 @@ var Thing = (function(){
 
     };
     
-    Thing.prototype.sendMessage = function(message){
+    Thing.prototype.sendMessage = function(payload){
         // TODO build the event message.
         // { "topic": "iot-2/type/nodered-version0.13.4-git/id/90b68602ab53/evt/update/fmt/json", "payload": { "d": { "temp": 17, "humidity": 55, "location": { "longitude": -98.49, "latitude": 29.42 } } }, "deviceId": "90b68602ab53", "deviceType": "nodered-version0.13.4-git", "eventType": "update", "format": "json", "_msgid": "69a7a1f.f96586" }        
-        var data = {thing: this._name, msg: message};
-        this._messageBrokerClient.publish(this._topicOut, JSON.stringify(data));
-        console.log('Thing [' + this._name + '] sending message: %s %s', this._topicOut, message);
+        var msg = {
+            msgid: 'TBD',
+            thingId: this._id,
+            deviceId: this._deviceId,
+            deviceType: 'NA',
+            eventType: 'update',
+            topic: this._topicOut,
+            payload: {data: payload},
+            format: 'json'
+        };
+        this._messageBrokerClient.publish(this._topicOut, JSON.stringify(msg));
+        console.log('Thing [' + this._name + '] sending message: %s %s', this._topicOut, msg);
     };
     
     Thing.prototype.startSensing = function(){
