@@ -19,7 +19,7 @@
             "topicIn": "thing/temp/in",
             "topicOut": "thing/temp/out",
             "startSensing": true,
-            "skip": false
+            "skip": true
         },
         {
             "name":"Button", 
@@ -32,7 +32,7 @@
             "topicIn": "thing/button/in",
             "topicOut": "thing/button/out",
             "startSensing": true,
-            "skip": true
+            "skip": false
         },
         {
             "name":"Relay", 
@@ -63,6 +63,20 @@
             "skip": false
         },        
         {
+            "name":"Mov", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 4,
+                "dir": "out"
+
+            },
+            "topicIn": "thing/mov/in",
+            "topicOut": "thing/mov/out",
+            "startSensing": true,
+            "skip": false
+        },        
+        {
             "name":"Display", 
             "type": "DisplayThing",
             "pin": {
@@ -74,7 +88,7 @@
             "topicIn": "thing/display/in",
             "topicOut": "thing/display/out",
             "startSensing": false,
-            "skip": false
+            "skip": true
         }        
                 
     ]
