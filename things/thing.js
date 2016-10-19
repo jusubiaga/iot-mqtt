@@ -112,7 +112,7 @@ var Thing = (function(){
                 action = jsonMsg.action;
                 params = jsonMsg.params;
             }catch(e) {
-                action = typeof message === 'string' ? message.trim() : '';
+                action = message.toString().trim();
             }
             
             that.executeAction(action, params);
