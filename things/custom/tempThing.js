@@ -8,7 +8,7 @@ var TempThing = (function(){
         
         // Set sensing Function
         this._sensingFunction = this._calcTemperature;
-        this._sensingTime = 1000;
+        //this._sensingTime = 1000;
     };
     
     TempThing.prototype = new AnalogThing();
