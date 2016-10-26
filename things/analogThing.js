@@ -11,10 +11,10 @@ var AnalogThing = (function(){
     AnalogThing.prototype = new Thing();
     AnalogThing.constructor = AnalogThing;
     
-    console.log('SENSING TIME: ' + this._sensingTime);
-
     AnalogThing.prototype.startSensing = function(){
         console.log(this._thing + ' [' + this._name + '] START SENSING ...');
+        console.log('SENSING TIME: ' + this._sensingTime);
+
         var that = this;
         this._loopInterval = setInterval(function(){
             var currentValue;
