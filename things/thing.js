@@ -5,7 +5,7 @@ var MQTT_CONNECTION_STRING = 'mqtt://127.0.0.1:1883';
 
 
 var Thing = (function(){
-    var LOOP_INTERVAL_TIME = 100; // millieconds
+    var LOOP_INTERVAL_TIME = 2000; // millieconds
     function Thing(pin, messageBroker, config){
         this._thing = 'GENERIC';
 
@@ -18,7 +18,7 @@ var Thing = (function(){
         this._value = 0;
         
         this._loopInterval = null;
-        this._sensingTime;
+        this._sensingTime = LOOP_INTERVAL_TIME;
         this._sensingFunction = null;
         this._startSensing = false;
 

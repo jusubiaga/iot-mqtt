@@ -11,6 +11,8 @@ var AnalogThing = (function(){
     AnalogThing.prototype = new Thing();
     AnalogThing.constructor = AnalogThing;
     
+    console.log('SENSING TIME: ' + this._sensingTime);
+
     AnalogThing.prototype.startSensing = function(){
         console.log(this._thing + ' [' + this._name + '] START SENSING ...');
         var that = this;
