@@ -1,0 +1,39 @@
+
+{
+    "id": "90b68602ab53",
+    "name": "myEdison",
+    "messageBroker": {
+        "endpoint": "mqtt://127.0.0.1:1883",
+        "options": {} 
+    },
+    
+    "things": [
+        {
+            "name":"Button", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/button/in",
+            "topicOut": "thing/button/out",
+            "startSensing": true,
+            "skip": false
+        },
+        {
+            "name":"Led", 
+            "type": "LedThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 3,
+                "dir": "in"
+
+            },
+            "topicIn": "thing/led/in",
+            "topicOut": "thing/led/out",
+            "startSensing": false,
+            "skip": false
+        }        
+    ]
+}

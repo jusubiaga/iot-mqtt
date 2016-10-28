@@ -1,0 +1,79 @@
+
+{
+    "id": "90b68602ab53",
+    "name": "myEdison",
+    "messageBroker": {
+        "endpoint": "mqtt://127.0.0.1:1883",
+        "options": {} 
+    },
+    
+    "things": [
+        {
+            "name":"Temperature", 
+            "type": "TempThing",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "out"
+            },
+            "topicIn": "thing/temp/in",
+            "topicOut": "thing/temp/out",
+            "sensingTime": 2000,
+            "startSensing": true,
+            "skip": false
+        },
+        {
+            "name":"Button", 
+            "type": "SwitchThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/button/in",
+            "topicOut": "thing/button/out",
+            "startSensing": true,
+            "skip": false
+        },
+        {
+            "name":"Led", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 3,
+                "dir": "in"
+
+            },
+            "topicIn": "thing/led/in",
+            "topicOut": "thing/led/out",
+            "startSensing": false,
+            "skip": false
+        },        
+        {
+            "name":"Relay", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 6,
+                "dir": "in"
+            },
+            "topicIn": "thing/relay/in",
+            "topicOut": "thing/relay/out",
+            "startSensing": false,
+            "skip": false
+        },        
+        {
+            "name":"Display", 
+            "type": "DisplayThing",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "in"
+            },
+            "topicIn": "thing/display/in",
+            "topicOut": "thing/display/out",
+            "startSensing": false,
+            "skip": false
+        }
+    ]
+}

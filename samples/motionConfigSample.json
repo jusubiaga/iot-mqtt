@@ -1,0 +1,83 @@
+{
+    "id": "90b68602ab53",
+    "name": "myEdison",
+    "messageBroker": {
+        "endpoint": "mqtt://127.0.0.1:1883",
+        "options": {} 
+    },
+    
+    "things": [
+        {
+            "name":"Button", 
+            "type": "SwitchThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 2,
+                "dir": "out"
+            },
+            "topicIn": "thing/button/in",
+            "topicOut": "thing/button/out",
+            "startSensing": true
+        },
+        {
+            "name":"Led", 
+            "type": "LedThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 3,
+                "dir": "in"
+            },
+            "topicIn": "thing/led/in",
+            "topicOut": "thing/led/out",
+            "startSensing": false
+        },        
+        {
+            "name":"Mov", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 4,
+                "dir": "out"
+            },
+            "topicIn": "thing/mov/in",
+            "topicOut": "thing/mov/out",
+            "startSensing": true
+        },
+        {
+            "name":"Relay", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 6,
+                "dir": "in"
+            },
+            "topicIn": "thing/relay/in",
+            "topicOut": "thing/relay/out",
+            "startSensing": false
+        },        
+        {
+            "name":"Buzz", 
+            "type": "DigitalThing",
+            "pin": {
+                "type": "DigitalPin",
+                "number": 8,
+                "dir": "in"
+            },
+            "topicIn": "thing/buzz/in",
+            "topicOut": "thing/buzz/out",
+            "startSensing": true
+        },        
+        {
+            "name":"Display", 
+            "type": "DisplayThing",
+            "pin": {
+                "type": "AnalogPin",
+                "number": 0,
+                "dir": "in"
+            },
+            "topicIn": "thing/display/in",
+            "topicOut": "thing/display/out",
+            "startSensing": false
+        }
+    ]
+}
