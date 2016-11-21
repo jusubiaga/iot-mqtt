@@ -1,6 +1,6 @@
 {
   "name": "iot-mqtt",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "./devices/device.js",
   "scripts": {
