@@ -28,7 +28,8 @@ var DigitalThing = (function(){
             if (currentValue !== that._value) {                
                 that._value = currentValue;
                 console.log('Read value', that._value);
-                that.sendMessage(that._value.toString());
+                // Fix to send message (adding settimeout)
+                setTimeout(that.sendMessage(that._value.toString()),0);
             }
             
             // that._value = that._pin.read();

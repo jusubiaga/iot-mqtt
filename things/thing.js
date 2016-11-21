@@ -100,6 +100,10 @@ var Thing = (function(){
             // add for bluemix {clientId: 'd:quickstart:jusu-iotdemo:90b68602ab53'}
             that._messageBrokerClient.subscribe(that._topicIn);
             that.sendMessage('Thing is Ready');
+            // Auto start
+            if (that._startSensing) {
+                that.startSensing();
+            }            
         });
 
         // Messages
@@ -121,12 +125,6 @@ var Thing = (function(){
         this._messageBrokerClient.on('close',function(){
             console.log('stop thing');
         });
-        
-        // Auto start
-        if (this._startSensing) {
-            this.startSensing();
-        }
-
     };
     
     Thing.prototype.sendMessage = function(payload){
