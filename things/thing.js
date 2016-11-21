@@ -69,6 +69,10 @@ var Thing = (function(){
         Value: {
             get: function(){
                 return this._value;
+            },
+            set: function(value) {
+                this._value = value;
+                this.sendMessage(this._value.toString());
             }
         }
     });
