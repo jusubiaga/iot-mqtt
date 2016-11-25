@@ -1,17 +1,52 @@
 'use strict';
 var bodyParser = require('body-parser');
 var Device = require('./device');
+var express = require('express');
+var http = require('http');
+var iocli = require('socket.io-client');
 
 var Server = (function(){
-    var DEFAULT_PORT = 3000;
+    var DEFAULT_PORT = 3001;
     function Server(options){
 
-        this._app = require('express')();
-        this._http = require('http').Server(this._app);
+        this._app = express();
+        this._http = http.Server(this._app);
+        this._socketio = iocli.connect('ws://ec2-54-214-112-170.us-west-2.compute.amazonaws.com:3000');
         this._options = options;
         this._device = null;
+
+        var that = this;
         
         this._port = this._options && this._options.port ? this._options.port : DEFAULT_PORT;
+
+        this._socketio.on('error', function(e){
+            console.log(e);
+        });
+
+        this._socketio.on('connect', function(){
+            console.log('Connected!');
+        });
+
+        this._socketio.on('event', function(data){
+            console.log('Event!');
+            console.log(data);
+        });
+
+        this._socketio.on('initdevice', function(data){
+            console.log('Initializing device');
+            console.log(data);
+            that._initDevice(data);
+        });
+
+        this._socketio.on('pushtodevice', function(data){
+            console.log('configuring program!');
+            console.log(data);
+            that._configureThings(data.things);
+        });
+
+        this._socketio.on('disconnect', function(){
+            console.log('Disconected!');
+        });
 
         this._middlewares();
         this._routes();
@@ -32,26 +67,12 @@ var Server = (function(){
         });
 
         this._app.post('/', function(req, res, next){
-            
-            that._device = new Device(req.body.id, 
-                {
-                    "name": req.body.name,
-                    "messageBroker": req.body.messageBroker,
-                    "test": that._options && that._options.test
-                }
-            )
-
+            that._initDevice();
             res.sendStatus(201);            
         });
 
         this._app.post('/things', function(req, res, next){
-            that._device.cleanAllThings();
-            var things = req.body.things;
-            // Create Things into device
-            for (var i=0; i<things.length; i++) {
-                that._device.createThing(things[i]);
-            }
-
+            that._configureThings(req.body.things);
             res.sendStatus(201);
         });
 
@@ -102,6 +123,25 @@ var Server = (function(){
             
         });
         
+    }
+
+    Server.prototype._configureThings = function(data) {
+        this._device.cleanAllThings();
+        var things = data;
+        // Create Things into device
+        for (var i=0; i<things.length; i++) {
+            this._device.createThing(things[i]);
+        }        
+    }
+
+    Server.prototype._initDevice = function(data) {
+        this._device = new Device(data.id, 
+            {
+                "name": data.name,
+                "messageBroker": data.messageBroker,
+                "test": this._options && this._options.test
+            }
+        )
     }
 
     Server.prototype._listen = function() {
