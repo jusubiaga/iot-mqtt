@@ -98,14 +98,14 @@ var Device = (function(){
             if (pinCreator && thingCreator) {
                 var pin = new pinCreator();
                 var pinDir = config.pin.dir === 'out' ? 1 : 0;
-                var thingId = uuid.v4();
+                var thingId = config.id || uuid.v4();
                 pin.connect(config.pin.number, pinDir);
                 thing = new thingCreator(pin, this._mqttMessageBroker, {
                     id: thingId,
                     deviceId: this._id,
                     name: config.name, 
-                    topicIn: config.topicIn ? this._id + '/' + config.topicIn : this._id + '/' + thingId + '/in', 
-                    topicOut: config.topicOut ? this._id + '/' + config.topicOut : this._id + '/' + thingId + '/out', 
+                    topicIn: config.topicIn ? config.topicIn : thingId + '/in', 
+                    topicOut: config.topicOut ? config.topicOut : thingId + '/out', 
                     sensingTime: config.sensingTime, 
                     startSensing: config.startSensing} );
 
