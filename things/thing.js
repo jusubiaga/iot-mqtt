@@ -168,7 +168,8 @@ var Thing = (function(){
     };
 
     Thing.prototype.destroy = function() {
-        this._messageBrokerClient.end();
+        this.stopSensing();
+        this._messageBrokerClient.unsubscribe([this._topicIn,this._topicOut]);
         console.log('Destroying thing ' + this._name);
     };
         

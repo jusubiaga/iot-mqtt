@@ -63,20 +63,27 @@ var Server = (function(){
         var that = this;
 
         this._app.get('/', function(req, res, next){
-            res.send('Index');
+            if (!that._device) {
+                return res.status(404).json({error: 'The device has not been configured yet'});
+            }
+
+            return res.json(that._device);
         });
 
         this._app.post('/', function(req, res, next){
-            that._initDevice();
+            that._initDevice(req.body);
             res.sendStatus(201);            
         });
 
         this._app.post('/things', function(req, res, next){
             that._configureThings(req.body.things);
-            res.sendStatus(201);
+            res.status(201).json({status: 'Thing Created'});
         });
 
         this._app.get('/things', function(req, res, next){
+            if (!that._device) {
+                return res.status(404).json({error: 'The device has not been configured yet'});
+            }
             var things = that._device.getThings();
             var keys = Object.keys(things);
             var result = [];

@@ -26,11 +26,11 @@
             "type": "node",
             "request": "attach",
             "port": 5858,
-            "address": "localhost",
+            "address": "192.168.1.10",
             "restart": false,
             "sourceMaps": false,
             "outDir": null,
-            "localRoot": "${workspaceRoot}/sensors/utils",
+            "localRoot": "${workspaceRoot}",
             "remoteRoot": null
         },
         {

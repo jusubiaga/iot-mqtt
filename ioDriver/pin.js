@@ -13,6 +13,10 @@ var Pin = (function(){
     Pin.prototype.connect = function(pinNumber) {
         console.log('connect is not implemented yet');
     };
+
+    Pin.prototype.disconnect = function(pinNumber) {
+        console.log('disconnect is not implemented yet');
+    };
     
     Pin.prototype.read = function(){
         console.log('read is not implemented yet');
